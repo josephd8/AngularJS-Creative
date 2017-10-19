@@ -1,0 +1,22 @@
+
+
+.angular-google-map-container { height: 400px; }
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+#bootstrap-overides .row { 
+    margin-right: 0px !important;
+    margin-left: 10px !important;
+
+}
+/* Clear floats after the columns */
+
+body {
+
+background-color: #f1f1f3 !important;
+
+}
+

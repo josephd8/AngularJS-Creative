@@ -1,4 +1,34 @@
+
 <!DOCTYPE html>
 <html>
-Hello, World.
+  <head>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="main.css">
+<script src='//maps.googleapis.com/maps/api/js?key=AIzaSyAYOwR77A6J_w1up04qc-5t2KkT1pWxKrs'></script>
+<script src="https://code.angularjs.org/1.3.14/angular.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+    <script src="https://rawgit.com/nmccready/angular-simple-logger/master/dist/angular-simple-logger.js"></script>
+    <script src="http://rawgit.com/angular-ui/angular-google-maps/master/dist/angular-google-maps.js"></script>
+<script src="app.js"></script>
+  </head>
+<body ng-app="myApp" ng-controller="MainCtrl"  id="bootstrap-overides">
+<div class = "row">
+    <h3 style="text-align:center;">Where have you been?</h3>
+<div class="column" style="width:50%;float:left;">
+<form>
+      <input type="text" ng-model="name" placeholder="Name"></input>
+      <input type="text" id="address" ng-model="address" placeholder="Location"></input>
+      <input ng-click="addSpot(); getCoord()" id="submit" type="button" value="Save Spot">
+</form>
+<br><br>
+<div ng-repeat="spot in spots">
+{{spot.name}} - {{spot.address}}
+<span class="glyphicon glyphicon-map-marker"  ng-click="updateMapCenter(spot.address)"></span>
+</div>
+</div>
+<div class="column" id="map_canvas" ng-controller="MainCtrl">
+    <ui-gmap-google-map center="map.center" zoom="map.zoom" options="options" refresh='refresher'></ui-gmap-google-map>
+</div>
+</div>
+  </body>
 </html>
