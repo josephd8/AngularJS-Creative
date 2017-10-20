@@ -15,10 +15,15 @@ $scope.longs = [
 -111.6585
 ];
 
-$scope.refresher=false;
+//$scope.refresher=false; 
+
+//$scope.map.control.refresh({latitude: $scope.lats[$scope.lats.length - 1], longitude: $scope.longs[$scope.longs.length - 1]});
+
+$scope.map = {center: {latitude: $scope.lats[$scope.lats.length - 1], longitude: $scope.longs[$scope.longs.length - 1]} , zoom: 8 };
+$scope.options = {scrollwheel: false};
 
 $scope.addSpot = function(){
-	$scope.spots.push({name: $scope.name,address:$scope.address});
+	$scope.spots.push({name: $scope.name,address:$scope.address})
 	$scope.name = "";
 	$scope.address = "";
 };
@@ -28,15 +33,20 @@ $scope.updateMapCenter = function(address){
 var geocoder = new google.maps.Geocoder();
 geocoder.geocode( { "address": address }, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK && results.length > 0) {
-        var location = results[0].geometry.location;
+        //var location = results[0].geometry.location;
+
         console.log(results);
+        console.log(results[0].geometry.location.lat());
+        console.log(results[0].geometry.location.lng());
         console.log(results[0].geometry.viewport.f.b);
         console.log(results[0].geometry.viewport.b.b);
-        $scope.lats.push(results[0].geometry.viewport.f.b);
-        $scope.longs.push(results[0].geometry.viewport.b.b);
+        $scope.lats.push(results[0].geometry.location.lat());
+        $scope.longs.push(results[0].geometry.location.lng());
         console.log($scope.lats);
         console.log($scope.longs);
-        $scope.refresher = true;
+	$scope.map = {center: {latitude: $scope.lats[$scope.lats.length - 1], longitude: $scope.longs[$scope.longs.length - 1]} , zoom: 8 };
+        $scope.options = {scrollwheel: false};
+	$scope.refresher = true;
 
     }
 });
@@ -48,20 +58,22 @@ $scope.spotLength = function(){
 	return $scope.spots.length;
 };
 
-$scope.map = {center: {latitude: $scope.lats[$scope.lats.length - 1], longitude: $scope.longs[$scope.longs.length - 1]} , zoom: 8 };
-        $scope.options = {scrollwheel: false};
+//$scope.map = {center: {latitude: $scope.lats[$scope.lats.length - 1], longitude: $scope.longs[$scope.longs.length - 1]} , zoom: 8 };
+       // $scope.options = {scrollwheel: false};
 
 $scope.getCoord = function(){
 	
 var geocoder = new google.maps.Geocoder();
 geocoder.geocode( { "address": $scope.spots[$scope.spots.length - 1].address }, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK && results.length > 0) {
-        var location = results[0].geometry.location;
+        //var location = results[0].geometry.location;
         console.log(results);
+	console.log(results[0].geometry.location.lat());
+	console.log(results[0].geometry.location.lng());
 	console.log(results[0].geometry.viewport.f.b);
         console.log(results[0].geometry.viewport.b.b);
-	$scope.lats.push(results[0].geometry.viewport.f.b);
-	$scope.longs.push(results[0].geometry.viewport.b.b);
+	$scope.lats.push(results[0].geometry.location.lat());
+	$scope.longs.push(results[0].geometry.location.lng());
 	console.log($scope.lats);
 	console.log($scope.longs);
 	$scope.refresher = true;
@@ -78,6 +90,12 @@ $scope.$watch('lats', function() {
 $scope.$watch('longs', function() {
     console.log($scope.longs);
 });
+
+$scope.$watch('map',function() {
+	console.log($scope.map);
+});
+
+
 
 }
 ]);

@@ -1,13 +1,13 @@
 
 
-.angular-google-map-container { height: 400px; }
+.angular-google-map-container { height: 600px; }
 
 .column {
     float: left;
     width: 50%;
 }
 
-#bootstrap-overides .row { 
+ .bootstrap-overides .row { 
     margin-right: 0px !important;
     margin-left: 10px !important;
 
